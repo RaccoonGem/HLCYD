@@ -4,11 +4,6 @@ import Enemy from './objects/Enemy.js';
 import Bullet from './objects/Bullet.js';
 import axios from 'https://cdn.jsdelivr.net/npm/axios@1.3.5/+esm';
 
-// axios.get('/leaderboard')
-//   .then(results => {
-//     console.log(results.data);
-//   });
-
 const canvasBG = document.getElementById('bg');
 const canvasMG = document.getElementById('mg');
 const canvasFG = document.getElementById('fg');
@@ -16,7 +11,22 @@ const ctxBG = canvasBG.getContext('2d');
 const ctxMG = canvasMG.getContext('2d');
 const ctxFG = canvasFG.getContext('2d');
 
-const player = new Player();
+let trackKeys = function (keys) {
+  let down = Object.create(null);
+  let track = function (event) {
+    if (keys.includes(event.key)) {
+      down[event.key] = event.type === 'keydown';
+      event.preventDefault();
+    }
+  }
+  window.addEventListener('keydown', track);
+  window.addEventListener('keyup', track);
+  return down;
+}
+const controls = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " "]);
+let canRespawn = false;
+
+const player = new Player(controls);
 const enemy = new Enemy();
 let gamePieces = [player, enemy];
 let attacks = [() => {
@@ -42,6 +52,7 @@ let attacks = [() => {
 
 let time = 0;
 let gameState = 'dodging';
+let scores = [];
 
 ctxBG.fillStyle = '#000000';
 ctxBG.fillRect(0, 0, 640, 480);
@@ -75,8 +86,21 @@ let step = function() {
     }
 
     for (let f = 2; f < gamePieces.length; f++) {
-      if (Math.sqrt(Math.pow((gamePieces[f].x - player.x), 2) + Math.pow((gamePieces[f].y - player.y), 2)) < (gamePieces[f].size + player.size) / 2) {
+      if (Math.sqrt(Math.pow((gamePieces[f].x - player.x), 2) + Math.pow((gamePieces[f].y - player.y), 2)) // Player Death
+      < (gamePieces[f].size + player.size) / 2) {
+        scores.push(time);
+        scores = scores.sort((a, b) => {return b - a});
+        canRespawn = false;
+        player.x = 320;
+        player.y = 360;
+        enemy.x = 320;
+        enemy.y = 120;
+        enemy.direction = 0;
+        enemy.speed = 1;
+        enemy.nextTime = 120;
+        gamePieces = gamePieces.slice(0, 2);
         gameState = 'dead';
+        continue;
       }
       if (gamePieces[f].x > (640 + gamePieces[f].size)
       || gamePieces[f].x < (gamePieces[f].size * -1)
@@ -90,29 +114,20 @@ let step = function() {
     }
     requestAnimationFrame(step);
   } else if (gameState === 'dead') {
-    axios.post('/leaderboard', {
-      mode: 1,
-      score: time,
-      initials: 'JDP'
-    })
-    .then(results1 => {
-      axios.get('/leaderboard')
-      .then(results2 => {
-        let scores = (results2.data.sort((a, b) => {return b.score - a.score})).slice(0, 10);
-        ctxFG.font = '16px monospace';
-        ctxFG.textAlign = 'center';
-        for (let f = 0; f < scores.length; f++) {
-          ctxFG.fillStyle = scores[f].score === time ? '#00FF00' : '#FFFFFF';
-          ctxFG.fillText(scores[f].initials + ': ' + (scores[f].score / 60).toFixed(2), 320, 40 * (f + 1));
-        }
-      })
-      .catch(err => {
-        throw err;
-      });
-    })
-    .catch(err => {
-      throw err;
-    });
+    ctxFG.clearRect(0, 0, 640, 480);
+    ctxFG.font = '16px monospace';
+    ctxFG.textAlign = 'center';
+    for (let f = 0; f < (scores.length > 10 ? 10 : scores.length); f++) {
+      ctxFG.fillStyle = scores[f] === time ? '#00FF00' : '#FFFFFF';
+      ctxFG.fillText((scores[f] / 60).toFixed(2), 320, 40 * (f + 1));
+    }
+    if (controls[" "] && canRespawn) {
+      ctxFG.clearRect(0, 0, 640, 480);
+      time = 0;
+      gameState = 'dodging';
+    }
+    canRespawn = !controls[" "];
+    requestAnimationFrame(step);
   }
 }
 step();

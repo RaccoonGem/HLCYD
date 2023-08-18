@@ -1,49 +1,34 @@
 import GamePiece from './GamePiece.js';
 
-let Player = function () {
+let Player = function (controls) {
   GamePiece.call(this);
   this.x = 320;
   this.y = 360;
   this.size = 24;
+  this.controls = controls;
 }
-
-let trackKeys = function (keys) {
-  let down = Object.create(null);
-  let track = function (event) {
-    if (keys.includes(event.key)) {
-      down[event.key] = event.type === 'keydown';
-      event.preventDefault();
-    }
-  }
-  window.addEventListener('keydown', track);
-  window.addEventListener('keyup', track);
-  return down;
-}
-
-const controls = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"]);
-
 Player.prototype = Object.create(GamePiece.prototype);
 Player.prototype.update = function () {
-  this.speed = 3;
-  if (controls.ArrowRight) {
-    if (controls.ArrowUp) {
+  this.speed = this.controls[" "] ? 1.5 : 3;
+  if (this.controls.ArrowRight) {
+    if (this.controls.ArrowUp) {
       this.direction = Math.PI * 7 / 4;
-    } else if (controls.ArrowDown) {
+    } else if (this.controls.ArrowDown) {
       this.direction = Math.PI / 4;
     } else {
       this.direction = 0;
     }
-  } else if (controls.ArrowLeft) {
-    if (controls.ArrowUp) {
+  } else if (this.controls.ArrowLeft) {
+    if (this.controls.ArrowUp) {
       this.direction = Math.PI * 5 / 4;
-    } else if (controls.ArrowDown) {
+    } else if (this.controls.ArrowDown) {
       this.direction = Math.PI * 3 / 4;
     } else {
       this.direction = Math.PI;
     }
-  } else if (controls.ArrowUp) {
+  } else if (this.controls.ArrowUp) {
     this.direction = Math.PI * 3 / 2;
-  } else if (controls.ArrowDown) {
+  } else if (this.controls.ArrowDown) {
     this.direction = Math.PI / 2;
   } else {
     this.speed = 0;
