@@ -11,6 +11,16 @@ const ctxBG = canvasBG.getContext('2d');
 const ctxMG = canvasMG.getContext('2d');
 const ctxFG = canvasFG.getContext('2d');
 
+let gameState = 'menu';
+let level = 0;
+const levelCount = 3;
+let time = 0;
+let scores = [];
+for (let f = 0; f < levelCount; f++) {
+  scores.push([]);
+}
+let attacks = [];
+
 let trackKeys = function (keys) {
   let down = Object.create(null);
   let track = function (event) {
@@ -23,13 +33,15 @@ let trackKeys = function (keys) {
   window.addEventListener('keyup', track);
   return down;
 }
-const controls = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " "]);
+const controls = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " ", "Escape"]);
 let canRespawn = false;
+let canSelect = false;
 
 const player = new Player(controls);
 const enemy = new Enemy();
 let gamePieces = [player, enemy];
-let attacks = [() => {
+
+attacks = [() => {
   let progress = 4 + Math.floor(Math.sqrt(time / 40));
   for (let f = Math.random(); f < progress; f++) {
     let bullet = new Bullet(enemy.x, enemy.y, 12, 4, 2 * f * Math.PI / progress, time + 150);
@@ -50,13 +62,6 @@ let attacks = [() => {
   enemy.nextTime += 90;
 }];
 
-let time = 0;
-let gameState = 'dodging';
-let scores = [];
-
-ctxBG.fillStyle = '#000000';
-ctxBG.fillRect(0, 0, 640, 480);
-
 let calcAngle = function (thisObj, thatObj) {
   if (thisObj.x === thatObj.x) {
     if (thisObj.y > thatObj.y) {
@@ -69,18 +74,60 @@ let calcAngle = function (thisObj, thatObj) {
   }
 }
 
+ctxBG.fillStyle = '#000000';
+ctxBG.fillRect(0, 0, 640, 480);
+
+//////// STEP BEGINS HERE ////////
 let step = function() {
   ctxMG.clearRect(0, 0, 640, 480);
-  if (gameState === 'dodging') {
-    ctxMG.fillStyle = '#FFFFFF';
+  //////// MENU ////////
+  if (gameState === 'menu') {
+    ctxFG.clearRect(0, 0, 640, 480);
+
+    ctxFG.fillStyle = '#FFFFFF';
+    ctxFG.font = '32px monospace';
+    ctxFG.textAlign = 'center';
+    ctxFG.fillText('How Long Can You Dodge?', 320, 64);
+    ctxFG.fillText('Level ' + level, 320, 432);
+    ctxFG.font = '16px monospace';
+    for (let f = 0; f < (scores[level].length > 10 ? 10 : scores[level].length); f++) {
+      ctxFG.fillText((scores[level][f] / 60).toFixed(2), 320, 30 * (f + 3.5));
+    }
+
+    if (!controls.ArrowLeft && !controls.ArrowRight) {
+      canSelect = true;
+    }
+    if (canSelect) {
+      if (controls.ArrowLeft) {
+        level--;
+        level = level >= 0 ? level : levelCount - 1;
+        canSelect = false;
+      } else if (controls.ArrowRight) {
+        level++;
+        level = level < levelCount ? level : 0;
+        canSelect = false;
+      }
+    }
+    if (controls[" "]) {
+      ctxFG.clearRect(0, 0, 640, 480);
+      time = 0;
+      gameState = 'dodging';
+    }
+  }
+  //////// DODGING ////////
+  else if (gameState === 'dodging') {
+    ctxMG.fillStyle = '#FFFFFF'; // Draw time
     ctxMG.font = '16px monospace';
     ctxMG.textAlign = 'center';
     ctxMG.fillText((time / 60).toFixed(2), 320, 16);
-    time++;
+
+    time++; // Increment time
+
     if (time === enemy.nextTime) {
       attacks[Math.floor(Math.random() * attacks.length)]();
     }
-    for (let f = 0; f < gamePieces.length; f++) {
+
+    for (let f = 0; f < gamePieces.length; f++) { // Draw each game piece
       gamePieces[f].update();
       gamePieces[f].draw(ctxMG);
     }
@@ -88,8 +135,8 @@ let step = function() {
     for (let f = 2; f < gamePieces.length; f++) {
       if (Math.sqrt(Math.pow((gamePieces[f].x - player.x), 2) + Math.pow((gamePieces[f].y - player.y), 2)) // Player Death
       < (gamePieces[f].size + player.size) / 2) {
-        scores.push(time);
-        scores = scores.sort((a, b) => {return b - a});
+        scores[level].push(time);
+        scores[level] = scores[level].sort((a, b) => {return b - a});
         canRespawn = false;
         player.x = 320;
         player.y = 360;
@@ -112,22 +159,28 @@ let step = function() {
         f--;
       }
     }
-    requestAnimationFrame(step);
-  } else if (gameState === 'dead') {
+  }
+  //////// DEAD ////////
+  else if (gameState === 'dead') {
     ctxFG.clearRect(0, 0, 640, 480);
     ctxFG.font = '16px monospace';
     ctxFG.textAlign = 'center';
-    for (let f = 0; f < (scores.length > 10 ? 10 : scores.length); f++) {
-      ctxFG.fillStyle = scores[f] === time ? '#00FF00' : '#FFFFFF';
-      ctxFG.fillText((scores[f] / 60).toFixed(2), 320, 40 * (f + 1));
+    for (let f = 0; f < (scores[level].length > 10 ? 10 : scores[level].length); f++) {
+      ctxFG.fillStyle = scores[level][f] === time ? '#00FF00' : '#FFFFFF';
+      ctxFG.fillText((scores[level][f] / 60).toFixed(2), 320, 40 * (f + 1));
     }
-    if (controls[" "] && canRespawn) {
+
+    if (controls.Escape) {
+      ctxFG.clearRect(0, 0, 640, 480);
+      time = 0;
+      gameState = 'menu';
+    } else if (controls[" "] && canRespawn) {
       ctxFG.clearRect(0, 0, 640, 480);
       time = 0;
       gameState = 'dodging';
     }
     canRespawn = !controls[" "];
-    requestAnimationFrame(step);
   }
+  requestAnimationFrame(step);
 }
 step();
