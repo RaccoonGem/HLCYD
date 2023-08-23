@@ -2,7 +2,6 @@ import GamePiece from './objects/GamePiece.js';
 import Player from './objects/Player.js';
 import Enemy from './objects/Enemy.js';
 import Bullet from './objects/Bullet.js';
-import axios from 'https://cdn.jsdelivr.net/npm/axios@1.3.5/+esm';
 
 const canvasBG = document.getElementById('bg');
 const canvasMG = document.getElementById('mg');
@@ -16,8 +15,10 @@ let level = 0;
 const levelCount = 3;
 let time = 0;
 let scores = [];
+let scoresSorted = [];
 for (let f = 0; f < levelCount; f++) {
   scores.push([]);
+  scoresSorted.push([]);
 }
 let attacks = [];
 
@@ -84,17 +85,69 @@ let step = function() {
   if (gameState === 'menu') {
     ctxFG.clearRect(0, 0, 640, 480);
 
-    ctxFG.fillStyle = '#FFFFFF';
+    ctxFG.fillStyle = '#FFFFFF'; //Drawing the menu
     ctxFG.font = '32px monospace';
     ctxFG.textAlign = 'center';
     ctxFG.fillText('How Long Can You Dodge?', 320, 64);
     ctxFG.fillText('Level ' + level, 320, 432);
     ctxFG.font = '16px monospace';
-    for (let f = 0; f < (scores[level].length > 10 ? 10 : scores[level].length); f++) {
-      ctxFG.fillText((scores[level][f] / 60).toFixed(2), 320, 30 * (f + 3.5));
+    for (let f = 0; f < (scoresSorted[level].length > 10 ? 10 : scoresSorted[level].length); f++) {
+      ctxFG.fillText((scoresSorted[level][f] / 60).toFixed(2), 320, 30 * (f + 3.5));
     }
 
-    if (!controls.ArrowLeft && !controls.ArrowRight) {
+    ctxFG.strokeStyle = '#FFFFFF';
+    ctxFG.lineWidth = 2;
+    ctxFG.strokeRect(200, 400, 240, 44);
+    ctxFG.beginPath();
+    ctxFG.moveTo(200, 400);
+    ctxFG.lineTo(192, 408);
+    ctxFG.lineTo(192, 460);
+    ctxFG.lineTo(448, 460);
+    ctxFG.lineTo(448, 408);
+    ctxFG.lineTo(440, 400);
+    ctxFG.moveTo(200, 444);
+    ctxFG.lineTo(192, 460);
+    ctxFG.moveTo(440, 444);
+    ctxFG.lineTo(448, 460);
+    ctxFG.stroke();
+
+    ctxFG.strokeRect(464, controls.ArrowRight ? 404 : 400, 44, 44); // Right Arrow Button
+    ctxFG.beginPath();
+    ctxFG.moveTo(475, controls.ArrowRight ? 415 : 411); // Arrow Symbol
+    ctxFG.lineTo(497, controls.ArrowRight ? 426 : 422);
+    ctxFG.lineTo(475, controls.ArrowRight ? 437 : 433);
+    ctxFG.lineTo(475, controls.ArrowRight ? 415 : 411);
+    ctxFG.moveTo(464, controls.ArrowRight ? 404 : 400); // Outline
+    ctxFG.lineTo(456, 408);
+    ctxFG.lineTo(456, 460);
+    ctxFG.lineTo(516, 460);
+    ctxFG.lineTo(516, 408);
+    ctxFG.lineTo(508, controls.ArrowRight ? 404 : 400);
+    ctxFG.moveTo(464, controls.ArrowRight ? 448 : 444); // Front Edges
+    ctxFG.lineTo(456, 460);
+    ctxFG.moveTo(508, controls.ArrowRight ? 448 : 444);
+    ctxFG.lineTo(516, 460);
+    ctxFG.stroke();
+
+    ctxFG.strokeRect(132, controls.ArrowLeft ? 404 : 400, 44, 44); // Left Arrow Button
+    ctxFG.beginPath();
+    ctxFG.moveTo(165, controls.ArrowLeft ? 415 : 411); // Arrow Symbol
+    ctxFG.lineTo(143, controls.ArrowLeft ? 426 : 422);
+    ctxFG.lineTo(165, controls.ArrowLeft ? 437 : 433);
+    ctxFG.lineTo(165, controls.ArrowLeft ? 415 : 411);
+    ctxFG.moveTo(132, controls.ArrowLeft ? 404 : 400); // Outline
+    ctxFG.lineTo(124, 408);
+    ctxFG.lineTo(124, 460);
+    ctxFG.lineTo(184, 460);
+    ctxFG.lineTo(184, 408);
+    ctxFG.lineTo(176, controls.ArrowLeft ? 404 : 400);
+    ctxFG.moveTo(132, controls.ArrowLeft ? 448 : 444); // Front Edges
+    ctxFG.lineTo(124, 460);
+    ctxFG.moveTo(176, controls.ArrowLeft ? 448 : 444);
+    ctxFG.lineTo(184, 460);
+    ctxFG.stroke();
+
+    if (!controls.ArrowLeft && !controls.ArrowRight) { // Menu Controls
       canSelect = true;
     }
     if (canSelect) {
@@ -136,7 +189,7 @@ let step = function() {
       if (Math.sqrt(Math.pow((gamePieces[f].x - player.x), 2) + Math.pow((gamePieces[f].y - player.y), 2)) // Player Death
       < (gamePieces[f].size + player.size) / 2) {
         scores[level].push(time);
-        scores[level] = scores[level].sort((a, b) => {return b - a});
+        scoresSorted[level] = scores[level].sort((a, b) => {return b - a});
         canRespawn = false;
         player.x = 320;
         player.y = 360;
@@ -165,9 +218,11 @@ let step = function() {
     ctxFG.clearRect(0, 0, 640, 480);
     ctxFG.font = '16px monospace';
     ctxFG.textAlign = 'center';
-    for (let f = 0; f < (scores[level].length > 10 ? 10 : scores[level].length); f++) {
-      ctxFG.fillStyle = scores[level][f] === time ? '#00FF00' : '#FFFFFF';
-      ctxFG.fillText((scores[level][f] / 60).toFixed(2), 320, 40 * (f + 1));
+    ctxFG.fillStyle = '#FFFFFF';
+    ctxFG.fillText('Level ' + level, 320, 40);
+    for (let f = 0; f < (scoresSorted[level].length > 10 ? 10 : scoresSorted[level].length); f++) {
+      ctxFG.fillStyle = scoresSorted[level][f] === time ? '#00FF00' : '#FFFFFF';
+      ctxFG.fillText((scoresSorted[level][f] / 60).toFixed(2), 320, 40 * (f + 2));
     }
 
     if (controls.Escape) {
