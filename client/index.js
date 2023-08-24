@@ -89,7 +89,7 @@ let step = function() {
     ctxFG.font = '32px monospace';
     ctxFG.textAlign = 'center';
     ctxFG.fillText('How Long Can You Dodge?', 320, 64);
-    ctxFG.fillText('Level ' + level, 320, 432);
+    ctxFG.fillText('Level ' + level, 320, 430);
     ctxFG.font = '16px monospace';
     for (let f = 0; f < (scoresSorted[level].length > 10 ? 10 : scoresSorted[level].length); f++) {
       ctxFG.fillText((scoresSorted[level][f] / 60).toFixed(2), 320, 30 * (f + 3.5));
@@ -97,54 +97,54 @@ let step = function() {
 
     ctxFG.strokeStyle = '#FFFFFF';
     ctxFG.lineWidth = 2;
-    ctxFG.strokeRect(200, 400, 240, 44);
+    ctxFG.strokeRect(200, 400, 240, 40);
     ctxFG.beginPath();
     ctxFG.moveTo(200, 400);
     ctxFG.lineTo(192, 408);
-    ctxFG.lineTo(192, 460);
-    ctxFG.lineTo(448, 460);
+    ctxFG.lineTo(192, 456);
+    ctxFG.lineTo(448, 456);
     ctxFG.lineTo(448, 408);
     ctxFG.lineTo(440, 400);
-    ctxFG.moveTo(200, 444);
-    ctxFG.lineTo(192, 460);
-    ctxFG.moveTo(440, 444);
-    ctxFG.lineTo(448, 460);
+    ctxFG.moveTo(200, 440);
+    ctxFG.lineTo(192, 456);
+    ctxFG.moveTo(440, 440);
+    ctxFG.lineTo(448, 456);
     ctxFG.stroke();
 
-    ctxFG.strokeRect(464, controls.ArrowRight ? 404 : 400, 44, 44); // Right Arrow Button
+    ctxFG.strokeRect(472, controls.ArrowRight ? 404 : 400, 40, 40); // Right Arrow Button
     ctxFG.beginPath();
-    ctxFG.moveTo(475, controls.ArrowRight ? 415 : 411); // Arrow Symbol
-    ctxFG.lineTo(497, controls.ArrowRight ? 426 : 422);
-    ctxFG.lineTo(475, controls.ArrowRight ? 437 : 433);
-    ctxFG.lineTo(475, controls.ArrowRight ? 415 : 411);
-    ctxFG.moveTo(464, controls.ArrowRight ? 404 : 400); // Outline
-    ctxFG.lineTo(456, 408);
-    ctxFG.lineTo(456, 460);
-    ctxFG.lineTo(516, 460);
-    ctxFG.lineTo(516, 408);
-    ctxFG.lineTo(508, controls.ArrowRight ? 404 : 400);
-    ctxFG.moveTo(464, controls.ArrowRight ? 448 : 444); // Front Edges
-    ctxFG.lineTo(456, 460);
-    ctxFG.moveTo(508, controls.ArrowRight ? 448 : 444);
-    ctxFG.lineTo(516, 460);
+    ctxFG.moveTo(482, controls.ArrowRight ? 414 : 410); // Arrow Symbol
+    ctxFG.lineTo(502, controls.ArrowRight ? 424 : 420);
+    ctxFG.lineTo(482, controls.ArrowRight ? 434 : 430);
+    ctxFG.lineTo(482, controls.ArrowRight ? 414 : 410);
+    ctxFG.moveTo(472, controls.ArrowRight ? 404 : 400); // Outline
+    ctxFG.lineTo(464, 408);
+    ctxFG.lineTo(464, 456);
+    ctxFG.lineTo(520, 456);
+    ctxFG.lineTo(520, 408);
+    ctxFG.lineTo(512, controls.ArrowRight ? 404 : 400);
+    ctxFG.moveTo(472, controls.ArrowRight ? 444 : 440); // Front Edges
+    ctxFG.lineTo(464, 456);
+    ctxFG.moveTo(512, controls.ArrowRight ? 444 : 440);
+    ctxFG.lineTo(520, 456);
     ctxFG.stroke();
 
-    ctxFG.strokeRect(132, controls.ArrowLeft ? 404 : 400, 44, 44); // Left Arrow Button
+    ctxFG.strokeRect(128, controls.ArrowLeft ? 404 : 400, 40, 40); // Left Arrow Button
     ctxFG.beginPath();
-    ctxFG.moveTo(165, controls.ArrowLeft ? 415 : 411); // Arrow Symbol
-    ctxFG.lineTo(143, controls.ArrowLeft ? 426 : 422);
-    ctxFG.lineTo(165, controls.ArrowLeft ? 437 : 433);
-    ctxFG.lineTo(165, controls.ArrowLeft ? 415 : 411);
-    ctxFG.moveTo(132, controls.ArrowLeft ? 404 : 400); // Outline
-    ctxFG.lineTo(124, 408);
-    ctxFG.lineTo(124, 460);
-    ctxFG.lineTo(184, 460);
-    ctxFG.lineTo(184, 408);
-    ctxFG.lineTo(176, controls.ArrowLeft ? 404 : 400);
-    ctxFG.moveTo(132, controls.ArrowLeft ? 448 : 444); // Front Edges
-    ctxFG.lineTo(124, 460);
-    ctxFG.moveTo(176, controls.ArrowLeft ? 448 : 444);
-    ctxFG.lineTo(184, 460);
+    ctxFG.moveTo(158, controls.ArrowLeft ? 414 : 410); // Arrow Symbol
+    ctxFG.lineTo(138, controls.ArrowLeft ? 424 : 420);
+    ctxFG.lineTo(158, controls.ArrowLeft ? 434 : 430);
+    ctxFG.lineTo(158, controls.ArrowLeft ? 414 : 410);
+    ctxFG.moveTo(128, controls.ArrowLeft ? 404 : 400); // Outline
+    ctxFG.lineTo(120, 408);
+    ctxFG.lineTo(120, 456);
+    ctxFG.lineTo(176, 456);
+    ctxFG.lineTo(176, 408);
+    ctxFG.lineTo(168, controls.ArrowLeft ? 404 : 400);
+    ctxFG.moveTo(128, controls.ArrowLeft ? 444 : 440); // Front Edges
+    ctxFG.lineTo(120, 456);
+    ctxFG.moveTo(168, controls.ArrowLeft ? 444 : 440);
+    ctxFG.lineTo(176, 456);
     ctxFG.stroke();
 
     if (!controls.ArrowLeft && !controls.ArrowRight) { // Menu Controls
@@ -216,6 +216,7 @@ let step = function() {
   //////// DEAD ////////
   else if (gameState === 'dead') {
     ctxFG.clearRect(0, 0, 640, 480);
+
     ctxFG.font = '16px monospace';
     ctxFG.textAlign = 'center';
     ctxFG.fillStyle = '#FFFFFF';
@@ -224,8 +225,37 @@ let step = function() {
       ctxFG.fillStyle = scoresSorted[level][f] === time ? '#00FF00' : '#FFFFFF';
       ctxFG.fillText((scoresSorted[level][f] / 60).toFixed(2), 320, 40 * (f + 2));
     }
+    ctxFG.strokeStyle = '#FFFFFF';
+    ctxFG.lineWidth = 2;
+    ctxFG.strokeRect(44, 428, 120, 20);
+    ctxFG.beginPath();
+    ctxFG.moveTo(44, 428);
+    ctxFG.lineTo(40, 432);
+    ctxFG.lineTo(40, 456);
+    ctxFG.lineTo(168, 456);
+    ctxFG.lineTo(168, 432);
+    ctxFG.lineTo(164, 428);
+    ctxFG.moveTo(44, 448);
+    ctxFG.lineTo(40, 456);
+    ctxFG.moveTo(164, 448);
+    ctxFG.lineTo(168, 456);
+    ctxFG.stroke();
 
-    if (controls.Escape) {
+    ctxFG.strokeRect(44, 392, 20, 20);
+    ctxFG.beginPath();
+    ctxFG.moveTo(44, 428);
+    ctxFG.lineTo(40, 432);
+    ctxFG.lineTo(40, 456);
+    ctxFG.lineTo(168, 456);
+    ctxFG.lineTo(168, 432);
+    ctxFG.lineTo(164, 428);
+    ctxFG.moveTo(44, 448);
+    ctxFG.lineTo(40, 456);
+    ctxFG.moveTo(164, 448);
+    ctxFG.lineTo(168, 456);
+    ctxFG.stroke();
+
+    if (controls.Escape) { // Game over screen controls
       ctxFG.clearRect(0, 0, 640, 480);
       time = 0;
       gameState = 'menu';
