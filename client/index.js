@@ -225,35 +225,44 @@ let step = function() {
       ctxFG.fillStyle = scoresSorted[level][f] === time ? '#00FF00' : '#FFFFFF';
       ctxFG.fillText((scoresSorted[level][f] / 60).toFixed(2), 320, 40 * (f + 2));
     }
-    ctxFG.strokeStyle = '#FFFFFF';
-    ctxFG.lineWidth = 2;
-    ctxFG.strokeRect(44, 428, 120, 20);
-    ctxFG.beginPath();
-    ctxFG.moveTo(44, 428);
-    ctxFG.lineTo(40, 432);
-    ctxFG.lineTo(40, 456);
-    ctxFG.lineTo(168, 456);
-    ctxFG.lineTo(168, 432);
-    ctxFG.lineTo(164, 428);
-    ctxFG.moveTo(44, 448);
-    ctxFG.lineTo(40, 456);
-    ctxFG.moveTo(164, 448);
-    ctxFG.lineTo(168, 456);
-    ctxFG.stroke();
 
-    ctxFG.strokeRect(44, 392, 20, 20);
-    ctxFG.beginPath();
-    ctxFG.moveTo(44, 428);
-    ctxFG.lineTo(40, 432);
-    ctxFG.lineTo(40, 456);
-    ctxFG.lineTo(168, 456);
-    ctxFG.lineTo(168, 432);
-    ctxFG.lineTo(164, 428);
-    ctxFG.moveTo(44, 448);
-    ctxFG.lineTo(40, 456);
-    ctxFG.moveTo(164, 448);
-    ctxFG.lineTo(168, 456);
-    ctxFG.stroke();
+    ctxFG.fillStyle = '#FFFFFF';
+    ctxFG.textAlign = 'left';
+    ctxFG.fillText('esc: Level select', 32, 416);
+    ctxFG.fillText('spacebar: Retry', 32, 448);
+    // ctxFG.font = '8px monospace';
+    // ctxFG.textAlign = 'center';
+    // ctxFG.fillText('esc', 54, 404);
+
+    // ctxFG.strokeStyle = '#FFFFFF';
+    // ctxFG.lineWidth = 2;
+    // ctxFG.strokeRect(44, 428, 120, 20);
+    // ctxFG.beginPath();
+    // ctxFG.moveTo(44, 428);
+    // ctxFG.lineTo(40, 432);
+    // ctxFG.lineTo(40, 456);
+    // ctxFG.lineTo(168, 456);
+    // ctxFG.lineTo(168, 432);
+    // ctxFG.lineTo(164, 428);
+    // ctxFG.moveTo(44, 448);
+    // ctxFG.lineTo(40, 456);
+    // ctxFG.moveTo(164, 448);
+    // ctxFG.lineTo(168, 456);
+    // ctxFG.stroke();
+
+    // ctxFG.strokeRect(44, 392, 20, 20);
+    // ctxFG.beginPath();
+    // ctxFG.moveTo(44, 392);
+    // ctxFG.lineTo(40, 396);
+    // ctxFG.lineTo(40, 420);
+    // ctxFG.lineTo(68, 420);
+    // ctxFG.lineTo(68, 396);
+    // ctxFG.lineTo(64, 392);
+    // ctxFG.moveTo(44, 412);
+    // ctxFG.lineTo(40, 420);
+    // ctxFG.moveTo(64, 412);
+    // ctxFG.lineTo(68, 420);
+    // ctxFG.stroke();
 
     if (controls.Escape) { // Game over screen controls
       ctxFG.clearRect(0, 0, 640, 480);
