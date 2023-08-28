@@ -21,6 +21,7 @@ for (let f = 0; f < levelCount; f++) {
   scoresSorted.push([]);
 }
 let attacks = [];
+let action = 0;
 
 let trackKeys = function (keys) {
   let down = Object.create(null);
@@ -42,26 +43,87 @@ const player = new Player(controls);
 const enemy = new Enemy();
 let gamePieces = [player, enemy];
 
-attacks = [() => {
-  let progress = 4 + Math.floor(Math.sqrt(time / 40));
-  for (let f = Math.random(); f < progress; f++) {
-    let bullet = new Bullet(enemy.x, enemy.y, 12, 4, 2 * f * Math.PI / progress, time + 150);
-    gamePieces.push(bullet);
-  }
-  enemy.nextTime += 60;
-}, () => {
-  for (let f = -1; f < 2; f++) {
-    let bullet = new Bullet(enemy.x, enemy.y, 12, 5, calcAngle(enemy, player) + (f * Math.PI / 8), time + 120);
-    gamePieces.push(bullet);
-  }
-  enemy.nextTime += 90;
-}, () => {
-  for (let f = 1; f < 17; f++) {
-    let bullet = new Bullet(enemy.x, enemy.y, 20 - f, f / 4, calcAngle(enemy, player), time + 180);
-    gamePieces.push(bullet);
-  }
-  enemy.nextTime += 90;
-}];
+attacks = [
+  [
+    {
+      moves: () => {
+        let progress = 4 + Math.floor(Math.sqrt(time / 40));
+        for (let f = Math.random(); f < progress; f++) {
+          let bullet = new Bullet(enemy.x, enemy.y, 12, 4, 2 * f * Math.PI / progress, time + 150);
+          gamePieces.push(bullet);
+        }
+      },
+      cd: 60
+    }
+  ],
+  [
+    {
+      moves: () => {
+        for (let f = -1; f < 2; f++) {
+          let bullet = new Bullet(enemy.x, enemy.y, 12, 5, calcAngle(enemy, player) + (f * Math.PI / 8), time + 120);
+          gamePieces.push(bullet);
+        }
+      },
+      cd: 90
+    }
+  ],
+  [
+    {
+      moves: () => {
+        for (let f = 1; f < 17; f++) {
+          let bullet = new Bullet(enemy.x, enemy.y, 20 - f, f / 4, calcAngle(enemy, player), time + 180);
+          gamePieces.push(bullet);
+        }
+      },
+      cd: 90
+    }
+  ],
+  [
+    {
+      moves: () => {
+        let bullet = new Bullet(enemy.x, enemy.y, 12, 5, calcAngle(enemy, player), time + 120);
+        gamePieces.push(bullet);
+      },
+      cd: 10
+    },
+    {
+      moves: () => {
+        let bullet = new Bullet(enemy.x, enemy.y, 12, 5, calcAngle(enemy, player), time + 120);
+        gamePieces.push(bullet);
+      },
+      cd: 10
+    },
+    {
+      moves: () => {
+        let bullet = new Bullet(enemy.x, enemy.y, 12, 5, calcAngle(enemy, player), time + 120);
+        gamePieces.push(bullet);
+      },
+      cd: 10
+    },
+    {
+      moves: () => {
+        let bullet = new Bullet(enemy.x, enemy.y, 12, 5, calcAngle(enemy, player), time + 120);
+        gamePieces.push(bullet);
+      },
+      cd: 10
+    },
+    {
+      moves: () => {
+        let bullet = new Bullet(enemy.x, enemy.y, 12, 5, calcAngle(enemy, player), time + 120);
+        gamePieces.push(bullet);
+      },
+      cd: 10
+    },
+    {
+      moves: () => {
+        let bullet = new Bullet(enemy.x, enemy.y, 12, 5, calcAngle(enemy, player), time + 120);
+        gamePieces.push(bullet);
+      },
+      cd: 60
+    }
+  ]
+];
+let currentAttack = Math.floor(Math.random() * attacks.length);
 
 let calcAngle = function (thisObj, thatObj) {
   if (thisObj.x === thatObj.x) {
@@ -177,7 +239,13 @@ let step = function() {
     time++; // Increment time
 
     if (time === enemy.nextTime) {
-      attacks[Math.floor(Math.random() * attacks.length)]();
+      attacks[currentAttack][action].moves();
+      enemy.nextTime += attacks[currentAttack][action].cd;
+      action++;
+      if (action === attacks[currentAttack].length) {
+        action = 0;
+        currentAttack = Math.floor(Math.random() * attacks.length);
+      }
     }
 
     for (let f = 0; f < gamePieces.length; f++) { // Draw each game piece
@@ -230,39 +298,6 @@ let step = function() {
     ctxFG.textAlign = 'left';
     ctxFG.fillText('esc: Level select', 32, 416);
     ctxFG.fillText('spacebar: Retry', 32, 448);
-    // ctxFG.font = '8px monospace';
-    // ctxFG.textAlign = 'center';
-    // ctxFG.fillText('esc', 54, 404);
-
-    // ctxFG.strokeStyle = '#FFFFFF';
-    // ctxFG.lineWidth = 2;
-    // ctxFG.strokeRect(44, 428, 120, 20);
-    // ctxFG.beginPath();
-    // ctxFG.moveTo(44, 428);
-    // ctxFG.lineTo(40, 432);
-    // ctxFG.lineTo(40, 456);
-    // ctxFG.lineTo(168, 456);
-    // ctxFG.lineTo(168, 432);
-    // ctxFG.lineTo(164, 428);
-    // ctxFG.moveTo(44, 448);
-    // ctxFG.lineTo(40, 456);
-    // ctxFG.moveTo(164, 448);
-    // ctxFG.lineTo(168, 456);
-    // ctxFG.stroke();
-
-    // ctxFG.strokeRect(44, 392, 20, 20);
-    // ctxFG.beginPath();
-    // ctxFG.moveTo(44, 392);
-    // ctxFG.lineTo(40, 396);
-    // ctxFG.lineTo(40, 420);
-    // ctxFG.lineTo(68, 420);
-    // ctxFG.lineTo(68, 396);
-    // ctxFG.lineTo(64, 392);
-    // ctxFG.moveTo(44, 412);
-    // ctxFG.lineTo(40, 420);
-    // ctxFG.moveTo(64, 412);
-    // ctxFG.lineTo(68, 420);
-    // ctxFG.stroke();
 
     if (controls.Escape) { // Game over screen controls
       ctxFG.clearRect(0, 0, 640, 480);
