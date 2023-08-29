@@ -22,6 +22,8 @@ for (let f = 0; f < levelCount; f++) {
 }
 let attacks = [];
 let action = 0;
+let movements = [];
+let cMovement = 0;
 
 let trackKeys = function (keys) {
   let down = Object.create(null);
@@ -44,6 +46,28 @@ const enemy = new Enemy();
 let gamePieces = [player, enemy];
 
 attacks = [
+  [
+    {
+      moves: () => {
+        enemy.direction = 0;
+        enemy.speed = 0;
+        cMovement = 1;
+        enemy.targetX = (Math.floor(Math.random() * 3) * 160) + 160;
+        enemy.targetY = (Math.floor(Math.random() * 2) * 160) + 160;
+      },
+      cd: 20
+    }
+  ],
+  [
+    {
+      moves: () => {
+        enemy.direction = Math.floor(Math.random() * 360);
+        enemy.speed = 1;
+        cMovement = 0;
+      },
+      cd: 20
+    }
+  ],
   [
     {
       moves: () => {
@@ -124,6 +148,16 @@ attacks = [
   ]
 ];
 let currentAttack = Math.floor(Math.random() * attacks.length);
+
+movements = [
+  () => {
+    enemy.direction += 1 / 180 * Math.PI;
+  },
+  () => {
+    enemy.x = (enemy.x + enemy.targetX) / 2;
+    enemy.y = (enemy.y + enemy.targetY) / 2;
+  }
+];
 
 let calcAngle = function (thisObj, thatObj) {
   if (thisObj.x === thatObj.x) {
@@ -247,6 +281,7 @@ let step = function() {
         currentAttack = Math.floor(Math.random() * attacks.length);
       }
     }
+    movements[cMovement]();
 
     for (let f = 0; f < gamePieces.length; f++) { // Draw each game piece
       gamePieces[f].update();

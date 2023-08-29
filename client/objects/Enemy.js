@@ -1,7 +1,7 @@
 import GamePiece from './GamePiece.js';
 import Bullet from './Bullet.js';
 
-let Enemy = function (attacks) {
+let Enemy = function () {
   GamePiece.call(this);
   this.x = 320;
   this.y = 120;
@@ -9,12 +9,12 @@ let Enemy = function (attacks) {
   this.size = 32;
   this.color = '#FF0000';
   this.nextTime = 120;
+  this.targetX = 320;
+  this.targetY = 120;
 }
 Enemy.prototype = Object.create(GamePiece.prototype);
 Enemy.prototype.update = function () {
-  this.direction += 1 / 180 * Math.PI;
   this.posUpdate();
-  //this.time++;
 }
 Enemy.prototype.draw = function (ctx) {
   ctx.fillStyle = this.color;
