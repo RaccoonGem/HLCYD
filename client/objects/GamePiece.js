@@ -1,3 +1,4 @@
+import game from '../game.js';
 let GamePiece = function () {
   this.x = 0;
   this.y = 0;
