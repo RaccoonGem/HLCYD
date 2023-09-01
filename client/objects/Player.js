@@ -1,4 +1,5 @@
 import GamePiece from './GamePiece.js';
+import game from '../game.js';
 
 let Player = function (controls) {
   GamePiece.call(this);
@@ -10,28 +11,14 @@ let Player = function (controls) {
 Player.prototype = Object.create(GamePiece.prototype);
 Player.prototype.update = function () {
   this.speed = this.controls[" "] ? 1.5 : 3;
-  if (this.controls.ArrowRight) {
-    if (this.controls.ArrowUp) {
-      this.direction = Math.PI * 7 / 4;
-    } else if (this.controls.ArrowDown) {
-      this.direction = Math.PI / 4;
-    } else {
-      this.direction = 0;
-    }
-  } else if (this.controls.ArrowLeft) {
-    if (this.controls.ArrowUp) {
-      this.direction = Math.PI * 5 / 4;
-    } else if (this.controls.ArrowDown) {
-      this.direction = Math.PI * 3 / 4;
-    } else {
-      this.direction = Math.PI;
-    }
-  } else if (this.controls.ArrowUp) {
-    this.direction = Math.PI * 3 / 2;
-  } else if (this.controls.ArrowDown) {
-    this.direction = Math.PI / 2;
-  } else {
+  if ((!this.controls.ArrowRight && !this.controls.ArrowLeft && !this.controls.ArrowUp && !this.controls.ArrowDown)
+    || (this.controls.ArrowRight && this.controls.ArrowLeft || this.controls.ArrowUp && this.controls.ArrowDown)) {
     this.speed = 0;
+  } else {
+    this.direction = game.calcAngle({x: 0, y: 0}, {
+      x: (this.controls.ArrowRight ? 1 : this.controls.ArrowLeft ? -1 : 0),
+      y: (this.controls.ArrowDown ? 1 : this.controls.ArrowUp ? -1 : 0)
+    });
   }
   if (this.x + (Math.cos(this.direction) * this.speed) > 640
   || this.x + (Math.cos(this.direction) * this.speed) < 0

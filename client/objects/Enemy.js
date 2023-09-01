@@ -23,11 +23,11 @@ let Enemy = function () {
 }
 Enemy.prototype = Object.create(GamePiece.prototype);
 Enemy.prototype.update = function () {
-  if (game.time === this.nextTime) {
+  if (game.time >= this.nextTime) {
     this.attacks[this.cAttack][this.action].moves();
     this.nextTime += this.attacks[this.cAttack][this.action].cd;
     this.action++;
-    if (this.action === this.attacks[this.cAttack].length) {
+    if (this.action >= this.attacks[this.cAttack].length) {
       this.action = 0;
       this.cAttack = Math.floor(Math.random() * this.attacks.length);
     }

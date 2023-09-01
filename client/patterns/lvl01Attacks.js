@@ -1,15 +1,16 @@
 import Bullet from '../objects/Bullet.js';
-import Enemy from '../objects/Enemy.js';
 import game from '../game.js';
+
 let attacks01 = [
   [
     {
       moves: () => {
-        game.enemy.direction = 0;
-        game.enemy.speed = 0;
-        game.enemy.cMovement = 1;
-        game.enemy.targetX = (Math.floor(Math.random() * 3) * 160) + 160;
-        game.enemy.targetY = (Math.floor(Math.random() * 2) * 160) + 160;
+        const E = game.enemy;
+        E.direction = 0;
+        E.speed = 0;
+        E.cMovement = 1;
+        E.targetX = (Math.floor(Math.random() * 3) * 160) + 160;
+        E.targetY = (Math.floor(Math.random() * 2) * 160) + 160;
       },
       cd: 40
     }
