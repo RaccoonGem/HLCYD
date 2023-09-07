@@ -8,7 +8,7 @@ let Enemy = function () {
   GamePiece.call(this);
   this.x = 320;
   this.y = 120;
-  this.speed = 1;
+  this.vel.spd = 1;
   this.size = 32;
   this.color = '#FF0000';
   this.nextTime = 120;

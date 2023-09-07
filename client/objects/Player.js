@@ -10,21 +10,21 @@ let Player = function (controls) {
 }
 Player.prototype = Object.create(GamePiece.prototype);
 Player.prototype.update = function () {
-  this.speed = this.controls[" "] ? 1.5 : 3;
+  this.vel.spd = this.controls[" "] ? 1.5 : 3;
   if ((!this.controls.ArrowRight && !this.controls.ArrowLeft && !this.controls.ArrowUp && !this.controls.ArrowDown)
     || (this.controls.ArrowRight && this.controls.ArrowLeft || this.controls.ArrowUp && this.controls.ArrowDown)) {
-    this.speed = 0;
+    this.vel.spd = 0;
   } else {
-    this.direction = game.calcAngle({x: 0, y: 0}, {
+    this.vel.dir = game.calcAngle({x: 0, y: 0}, {
       x: (this.controls.ArrowRight ? 1 : this.controls.ArrowLeft ? -1 : 0),
       y: (this.controls.ArrowDown ? 1 : this.controls.ArrowUp ? -1 : 0)
     });
   }
-  if (this.x + (Math.cos(this.direction) * this.speed) > 640
-  || this.x + (Math.cos(this.direction) * this.speed) < 0
-  || this.y + (Math.sin(this.direction) * this.speed) > 480
-  || this.y + (Math.sin(this.direction) * this.speed) < 0) {
-    this.speed = 0;
+  if (this.x + (Math.cos(this.vel.dir) * this.vel.spd) > 640
+  || this.x + (Math.cos(this.vel.dir) * this.vel.spd) < 0
+  || this.y + (Math.sin(this.vel.dir) * this.vel.spd) > 480
+  || this.y + (Math.sin(this.vel.dir) * this.vel.spd) < 0) {
+    this.vel.spd = 0;
   }
   this.posUpdate();
 }

@@ -6,8 +6,8 @@ let attacks01 = [
     {
       moves: () => {
         const E = game.enemy;
-        E.direction = 0;
-        E.speed = 0;
+        E.vel.dir = 0;
+        E.vel.spd = 0;
         E.cMovement = 1;
         E.targetX = (Math.floor(Math.random() * 3) * 160) + 160;
         E.targetY = (Math.floor(Math.random() * 2) * 160) + 160;
@@ -18,8 +18,8 @@ let attacks01 = [
   [
     {
       moves: () => {
-        game.enemy.direction = Math.floor(Math.random() * 360);
-        game.enemy.speed = 1;
+        game.enemy.vel.dir = Math.floor(Math.random() * 360);
+        game.enemy.vel.spd = 1;
         game.enemy.cMovement = 0;
       },
       cd: 20

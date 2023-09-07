@@ -5,8 +5,8 @@ let Bullet = function (x, y, size, speed, direction, timeOut) {
   this.x = x;
   this.y = y;
   this.size = size;
-  this.speed = speed;
-  this.direction = direction;
+  this.vel.spd = speed;
+  this.vel.dir = direction;
   this.timeOut = timeOut;
   this.color = '#FF0000';
 }
