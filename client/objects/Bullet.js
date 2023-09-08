@@ -9,6 +9,7 @@ let Bullet = function (x, y, size, speed, direction, timeOut) {
   this.vel.dir = direction;
   this.timeOut = timeOut;
   this.color = '#FF0000';
+  this.deadly = true;
 }
 Bullet.prototype = Object.create(GamePiece.prototype);
 Bullet.prototype.update = function () {

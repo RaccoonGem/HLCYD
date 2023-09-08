@@ -128,6 +128,16 @@ let step = function() {
     if (controls[" "]) {
       ctxFG.clearRect(0, 0, 640, 480);
       game.time = 0;
+      game.player.x = 320;
+      game.player.y = 360;
+      game.enemy.x = 320;
+      game.enemy.y = 120;
+      game.enemy.vel.dir = 0;
+      game.enemy.vel.spd = 1;
+      game.enemy.nextTime = 120;
+      game.enemy.cAttack = Math.floor(Math.random() * game.enemy.attacks.length);
+      game.enemy.action = 0;
+      game.enemy.cMovement = 0;
       game.state = 'dodging';
     }
   }
@@ -140,34 +150,22 @@ let step = function() {
 
     game.time++; // Increment time
 
-    for (let f = 0; f < game.pieces.length; f++) { // Draw each game piece
+    for (let f = 0; f < game.pieces.length; f++) { // Loop through each game piece
       game.pieces[f].update();
       game.pieces[f].draw(ctxMG);
-    }
-
-    for (let f = 2; f < game.pieces.length; f++) {
-      if (Math.sqrt(Math.pow((game.pieces[f].x - game.player.x), 2) // Player death
-      + Math.pow((game.pieces[f].y - game.player.y), 2))
-      < (game.pieces[f].size + game.player.size) / 2) {
+      if (game.pieces[f].deadly && game.pieces[f].collision()) { // Player death
         scores[game.level].push(game.time);
         scoresSorted[game.level] = scores[game.level].sort((a, b) => {return b - a});
         canRespawn = false;
-        game.player.x = 320;
-        game.player.y = 360;
-        game.enemy.x = 320;
-        game.enemy.y = 120;
-        game.enemy.vel.dir = 0;
-        game.enemy.vel.spd = 1;
-        game.enemy.nextTime = 120;
         game.pieces = game.pieces.slice(0, 2);
         game.state = 'dead';
         continue;
       }
-      if (game.pieces[f].x > (640 + game.pieces[f].size)
+      if (f >= 2 && (game.pieces[f].x > (640 + game.pieces[f].size)
       || game.pieces[f].x < (game.pieces[f].size * -1)
       || game.pieces[f].y > (480 + game.pieces[f].size)
       || game.pieces[f].y < (game.pieces[f].size * -1)
-      || game.time > game.pieces[f].timeOut) {
+      || game.time > game.pieces[f].timeOut)) {
         delete game.pieces[f];
         game.pieces = game.pieces.slice(0, f).concat(game.pieces.slice(f + 1));
         f--;
@@ -199,6 +197,16 @@ let step = function() {
     } else if (controls[" "] && canRespawn) {
       ctxFG.clearRect(0, 0, 640, 480);
       game.time = 0;
+      game.player.x = 320;
+      game.player.y = 360;
+      game.enemy.x = 320;
+      game.enemy.y = 120;
+      game.enemy.vel.dir = 0;
+      game.enemy.vel.spd = 1;
+      game.enemy.nextTime = 120;
+      game.enemy.cAttack = Math.floor(Math.random() * game.enemy.attacks.length);
+      game.enemy.action = 0;
+      game.enemy.cMovement = 0;
       game.state = 'dodging';
     }
     canRespawn = !controls[" "];
