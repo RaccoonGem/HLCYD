@@ -1,5 +1,4 @@
 import GamePiece from './GamePiece.js';
-import Bullet from './Bullet.js';
 import attacks01 from '../patterns/lvl01Attacks.js';
 import movements01 from '../patterns/lvl01Movements.js';
 import game from '../game.js';

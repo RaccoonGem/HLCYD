@@ -1,4 +1,4 @@
-import GamePiece from './GamePiece.js';
+import GamePiece from '../GamePiece.js';
 
 let Bullet = function (x, y, size, speed, direction, timeOut) {
   GamePiece.call(this);

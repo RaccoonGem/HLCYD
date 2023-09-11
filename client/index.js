@@ -1,7 +1,6 @@
 import GamePiece from './objects/GamePiece.js';
 import Player from './objects/Player.js';
 import Enemy from './objects/Enemy.js';
-import Bullet from './objects/Bullet.js';
 import game from './game.js';
 
 const canvasBG = document.getElementById('bg');
