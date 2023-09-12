@@ -1,5 +1,6 @@
 import Bullet from '../objects/projectiles/Bullet.js';
 import Burr from '../objects/projectiles/Burr.js';
+import Booster from '../objects/projectiles/Booster.js';
 import game from '../game.js';
 
 let attacks01 = [
@@ -108,6 +109,15 @@ let attacks01 = [
     {
       moves: () => {
         let bullet = new Burr(game.enemy.x, game.enemy.y, 36, 5, game.calcAngle(game.enemy, game.player), game.time + 240);
+        game.pieces.push(bullet);
+      },
+      cd: 45
+    }
+  ],
+  [
+    {
+      moves: () => {
+        let bullet = new Booster(game.enemy.x, game.enemy.y, 24, 0, game.calcAngle(game.enemy, game.player), game.time + 240);
         game.pieces.push(bullet);
       },
       cd: 45
