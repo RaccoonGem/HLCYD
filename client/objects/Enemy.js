@@ -40,6 +40,13 @@ Enemy.prototype.draw = function (ctx) {
   ctx.moveTo(this.x, this.y);
   ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
   ctx.fill();
+
+  ctx.fillStyle = "#000000";
+  let lookDir = game.calcAngle(this, game.player);
+  ctx.beginPath();
+  ctx.moveTo(this.x + (Math.cos(lookDir) * this.size / 4), this.y + (Math.sin(lookDir) * this.size / 4));
+  ctx.arc(this.x + (Math.cos(lookDir) * this.size / 4), this.y + (Math.sin(lookDir) * this.size / 4), this.size / 8, 0, Math.PI * 2);
+  ctx.fill();
 }
 
 export default Enemy;
