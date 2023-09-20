@@ -7,7 +7,7 @@ let Player = function (controls) {
   this.y = 360;
   this.size = 24;
   this.controls = controls;
-}
+};
 Player.prototype = Object.create(GamePiece.prototype);
 Player.prototype.update = function () {
   this.vel.spd = this.controls[" "] ? 1.5 : 3;
@@ -27,13 +27,13 @@ Player.prototype.update = function () {
     this.vel.spd = 0;
   }
   this.posUpdate();
-}
+};
 Player.prototype.draw = function (ctx) {
   ctx.fillStyle = '#00FF00';
   ctx.beginPath();
   ctx.moveTo(this.x, this.y);
   ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
   ctx.fill();
-}
+};
 
 export default Player;

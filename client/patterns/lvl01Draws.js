@@ -1,6 +1,6 @@
 import game from '../game.js';
 
-let draws01 = [
+let draws = [
   (ctx) => {
     ctx.fillStyle = game.enemy.color;
     ctx.beginPath();
@@ -17,4 +17,4 @@ let draws01 = [
   }
 ];
 
-export default draws01;
+export default draws;

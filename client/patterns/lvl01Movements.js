@@ -1,6 +1,6 @@
 import game from '../game.js';
 
-let movements01 = [
+let movements = [
   () => {
     game.enemy.vel.dir += 1 / 180 * Math.PI;
   },
@@ -10,4 +10,4 @@ let movements01 = [
   }
 ];
 
-export default movements01;
+export default movements;

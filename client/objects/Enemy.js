@@ -1,7 +1,7 @@
 import GamePiece from './GamePiece.js';
-import attacks01 from '../patterns/lvl01Attacks.js';
-import draws01 from '../patterns/lvl01Draws.js';
-import movements01 from '../patterns/lvl01Movements.js';
+import attacks from '../patterns/lvl01Attacks.js';
+import draws from '../patterns/lvl01Draws.js';
+import movements from '../patterns/lvl01Movements.js';
 import game from '../game.js';
 
 let Enemy = function () {
@@ -15,15 +15,18 @@ let Enemy = function () {
   this.targetX = 320;
   this.targetY = 120;
 
-  this.attacks = attacks01;
+  this.attacks = attacks;
   this.cAttack = 0;
   this.action = 0;
-  this.draws = draws01;
+  this.draws = draws;
   this.cDraw = 0;
-  this.movements = movements01;
+  this.movements = movements;
   this.cMovement = 0;
-}
+};
 Enemy.prototype = Object.create(GamePiece.prototype);
+Enemy.prototype.init = function () {
+
+};
 Enemy.prototype.update = function () {
   if (game.time >= this.nextTime) {
     this.attacks[this.cAttack][this.action].moves();
@@ -36,9 +39,9 @@ Enemy.prototype.update = function () {
   }
   this.movements[this.cMovement]();
   this.posUpdate();
-}
+};
 Enemy.prototype.draw = function (ctx) {
   this.draws[this.cDraw](ctx);
-}
+};
 
 export default Enemy;

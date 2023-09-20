@@ -4,7 +4,7 @@ import Booster from '../objects/projectiles/Booster.js';
 import Rocket from '../objects/projectiles/Rocket.js';
 import game from '../game.js';
 
-let attacks01 = [
+let attacks = [
   [
     {
       moves: () => {
@@ -134,4 +134,4 @@ let attacks01 = [
     }
   ]
 ];
-export default attacks01;
+export default attacks;
