@@ -1,5 +1,6 @@
 import GamePiece from './GamePiece.js';
 import attacks01 from '../patterns/lvl01Attacks.js';
+import draws01 from '../patterns/lvl01Draws.js';
 import movements01 from '../patterns/lvl01Movements.js';
 import game from '../game.js';
 
@@ -17,6 +18,8 @@ let Enemy = function () {
   this.attacks = attacks01;
   this.cAttack = 0;
   this.action = 0;
+  this.draws = draws01;
+  this.cDraw = 0;
   this.movements = movements01;
   this.cMovement = 0;
 }
@@ -35,18 +38,7 @@ Enemy.prototype.update = function () {
   this.posUpdate();
 }
 Enemy.prototype.draw = function (ctx) {
-  ctx.fillStyle = this.color;
-  ctx.beginPath();
-  ctx.moveTo(this.x, this.y);
-  ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "#000000";
-  let lookDir = game.calcAngle(this, game.player);
-  ctx.beginPath();
-  ctx.moveTo(this.x + (Math.cos(lookDir) * this.size / 4), this.y + (Math.sin(lookDir) * this.size / 4));
-  ctx.arc(this.x + (Math.cos(lookDir) * this.size / 4), this.y + (Math.sin(lookDir) * this.size / 4), this.size / 8, 0, Math.PI * 2);
-  ctx.fill();
+  this.draws[this.cDraw](ctx);
 }
 
 export default Enemy;
