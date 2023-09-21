@@ -25,7 +25,15 @@ let Enemy = function () {
 };
 Enemy.prototype = Object.create(GamePiece.prototype);
 Enemy.prototype.init = function () {
-
+  import('../patterns/lvl' + game.level < 10 ? '0' : '' + game.level + 'Attacks.js').then((a) => {
+    this.attacks = a.default;
+    import('../patterns/lvl' + game.level < 10 ? '0' : '' + game.level + 'Draws.js').then((d) => {
+      this.draws = d.default;
+      import('../patterns/lvl' + game.level < 10 ? '0' : '' + game.level + 'Movements.js').then((m) => {
+        this.movements = m.default;
+      });
+    });
+  });
 };
 Enemy.prototype.update = function () {
   if (game.time >= this.nextTime) {
