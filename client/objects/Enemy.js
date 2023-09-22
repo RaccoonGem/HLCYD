@@ -1,7 +1,4 @@
 import GamePiece from './GamePiece.js';
-import attacks from '../patterns/lvl01Attacks.js';
-import draws from '../patterns/lvl01Draws.js';
-import movements from '../patterns/lvl01Movements.js';
 import game from '../game.js';
 
 let Enemy = function () {
@@ -15,22 +12,21 @@ let Enemy = function () {
   this.targetX = 320;
   this.targetY = 120;
 
-  this.attacks = attacks;
   this.cAttack = 0;
   this.action = 0;
-  this.draws = draws;
   this.cDraw = 0;
-  this.movements = movements;
   this.cMovement = 0;
 };
 Enemy.prototype = Object.create(GamePiece.prototype);
 Enemy.prototype.init = function () {
-  import('../patterns/lvl' + game.level < 10 ? '0' : '' + game.level + 'Attacks.js').then((a) => {
+  import('../patterns/lvl' + (game.level < 10 ? '0' : '') + game.level + 'Attacks.js').then((a) => {
     this.attacks = a.default;
-    import('../patterns/lvl' + game.level < 10 ? '0' : '' + game.level + 'Draws.js').then((d) => {
+    this.cAttack = Math.floor(Math.random() * this.attacks.length);
+    import('../patterns/lvl' + (game.level < 10 ? '0' : '') + game.level + 'Draws.js').then((d) => {
       this.draws = d.default;
-      import('../patterns/lvl' + game.level < 10 ? '0' : '' + game.level + 'Movements.js').then((m) => {
+      import('../patterns/lvl' + (game.level < 10 ? '0' : '') + game.level + 'Movements.js').then((m) => {
         this.movements = m.default;
+        game.state = 'dodging';
       });
     });
   });

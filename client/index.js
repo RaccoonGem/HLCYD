@@ -134,10 +134,9 @@ let step = function() {
       game.enemy.vel.dir = 0;
       game.enemy.vel.spd = 1;
       game.enemy.nextTime = 120;
-      game.enemy.cAttack = Math.floor(Math.random() * game.enemy.attacks.length);
       game.enemy.action = 0;
       game.enemy.cMovement = 0;
-      game.state = 'dodging';
+      game.enemy.init();
     }
   }
   //////// DODGING ////////
