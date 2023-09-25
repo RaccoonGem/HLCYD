@@ -2,6 +2,7 @@ import Bullet from '../objects/projectiles/Bullet.js';
 import Burr from '../objects/projectiles/Burr.js';
 import Booster from '../objects/projectiles/Booster.js';
 import Rocket from '../objects/projectiles/Rocket.js';
+import Seeker from '../objects/projectiles/Seeker.js';
 import game from '../game.js';
 
 let attacks = [
@@ -128,6 +129,15 @@ let attacks = [
     {
       moves: () => {
         let bullet = new Rocket(game.enemy.x, game.enemy.y, 16, 0, game.calcAngle(game.enemy, game.player), game.time + 240);
+        game.pieces.push(bullet);
+      },
+      cd: 45
+    }
+  ],
+  [
+    {
+      moves: () => {
+        let bullet = new Seeker(game.enemy.x, game.enemy.y, 16, 0, game.calcAngle(game.enemy, game.player), game.time + 240);
         game.pieces.push(bullet);
       },
       cd: 45
