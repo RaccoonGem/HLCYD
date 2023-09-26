@@ -3,6 +3,7 @@ import Burr from '../objects/projectiles/Burr.js';
 import Booster from '../objects/projectiles/Booster.js';
 import Rocket from '../objects/projectiles/Rocket.js';
 import Seeker from '../objects/projectiles/Seeker.js';
+import Bubble from '../objects/projectiles/Bubble.js';
 import game from '../game.js';
 
 let attacks = [
@@ -141,6 +142,17 @@ let attacks = [
         game.pieces.push(bullet);
       },
       cd: 45
+    }
+  ],
+  [
+    {
+      moves: () => {
+        for (let f = -1; f < 2; f++) {
+          let bullet = new Bubble(game.enemy.x, game.enemy.y, 12, 5, game.calcAngle(game.enemy, game.player) + (f * Math.PI / 8), game.time + 120);
+          game.pieces.push(bullet);
+        }
+      },
+      cd: 90
     }
   ]
 ];
