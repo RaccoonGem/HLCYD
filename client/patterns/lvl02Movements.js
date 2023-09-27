@@ -1,12 +1,12 @@
 import game from '../game.js';
 
 let movements = [
-  () => {
-    game.enemy.vel.dir += 1 / 180 * Math.PI;
+  (E, P) => {
+    E.vel.dir += 1 / 180 * Math.PI;
   },
-  () => {
-    game.enemy.x = ((3 * game.enemy.x) + game.enemy.targetX) / 4;
-    game.enemy.y = ((3 * game.enemy.y) + game.enemy.targetY) / 4;
+  (E, P) => {
+    E.x = ((3 * E.x) + E.targetX) / 4;
+    E.y = ((3 * E.y) + E.targetY) / 4;
   }
 ];
 

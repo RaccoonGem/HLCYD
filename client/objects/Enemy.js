@@ -33,7 +33,7 @@ Enemy.prototype.init = function () {
 };
 Enemy.prototype.update = function () {
   if (game.time >= this.nextTime) {
-    this.attacks[this.cAttack][this.action].moves();
+    this.attacks[this.cAttack][this.action].moves(this, game.player);
     this.nextTime += this.attacks[this.cAttack][this.action].cd;
     this.action++;
     if (this.action >= this.attacks[this.cAttack].length) {
@@ -41,11 +41,11 @@ Enemy.prototype.update = function () {
       this.cAttack = Math.floor(Math.random() * this.attacks.length);
     }
   }
-  this.movements[this.cMovement]();
+  this.movements[this.cMovement](this, game.player);
   this.posUpdate();
 };
 Enemy.prototype.draw = function (ctx) {
-  this.draws[this.cDraw](ctx);
+  this.draws[this.cDraw](ctx, this, game.player);
 };
 
 export default Enemy;
