@@ -3,6 +3,9 @@ let game = {
   level: 0,
   time: 0,
   pieces: [],
+  calcDistance: (thisObj, thatObj) => {
+    return Math.sqrt(((thisObj.x - thatObj.x) ** 2) + ((thisObj.y - thatObj.y) ** 2));
+  },
   calcAngle: (thisObj, thatObj) => {
     if (thisObj.x === thatObj.x) {
       if (thisObj.y > thatObj.y) {

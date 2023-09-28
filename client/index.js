@@ -132,10 +132,11 @@ let step = function() {
       game.enemy.x = 320;
       game.enemy.y = 120;
       game.enemy.vel.dir = 0;
-      game.enemy.vel.spd = 1;
+      game.enemy.vel.spd = 0;
       game.enemy.nextTime = 120;
       game.enemy.action = 0;
       game.enemy.cMovement = 0;
+      game.state = 'loading';
       game.enemy.init();
     }
   }
@@ -200,7 +201,7 @@ let step = function() {
       game.enemy.x = 320;
       game.enemy.y = 120;
       game.enemy.vel.dir = 0;
-      game.enemy.vel.spd = 1;
+      game.enemy.vel.spd = 0;
       game.enemy.nextTime = 120;
       game.enemy.cAttack = Math.floor(Math.random() * game.enemy.attacks.length);
       game.enemy.action = 0;
