@@ -7,13 +7,21 @@ let draws = [
     ctx.moveTo(E.x, E.y);
     ctx.arc(E.x, E.y, E.size / 2, 0, Math.PI * 2);
     ctx.fill();
-
-    ctx.fillStyle = "#000000";
-    let lookDir = game.calcAngle(E, P);
+    let anim = [(4 + Math.sin(game.time / 10)) / 16,
+    (4 + Math.cos(game.time / 10)) / 16,
+    (4 - Math.sin(game.time / 10)) / 16,
+    (4 - Math.cos(game.time / 10)) / 16];
     ctx.beginPath();
-    ctx.moveTo(E.x + (Math.cos(lookDir) * E.size / 4), E.y + (Math.sin(lookDir) * E.size / 4));
-    ctx.arc(E.x + (Math.cos(lookDir) * E.size / 4), E.y + (Math.sin(lookDir) * E.size / 4), E.size / 8, 0, Math.PI * 2);
+    ctx.moveTo(E.x + (E.size * anim[0]), E.y + (E.size * anim[0]));
+    ctx.arc(E.x + (E.size * anim[0]), E.y + (E.size * anim[0]), E.size * anim[2], 0, Math.PI * 2);
+    ctx.moveTo(E.x - (E.size * anim[1]), E.y + (E.size * anim[1]));
+    ctx.arc(E.x - (E.size * anim[1]), E.y + (E.size * anim[1]), E.size * anim[3], 0, Math.PI * 2);
+    ctx.moveTo(E.x - (E.size * anim[2]), E.y - (E.size * anim[2]));
+    ctx.arc(E.x - (E.size * anim[2]), E.y - (E.size * anim[2]), E.size * anim[0], 0, Math.PI * 2);
+    ctx.moveTo(E.x + (E.size * anim[3]), E.y - (E.size * anim[3]));
+    ctx.arc(E.x + (E.size * anim[3]), E.y - (E.size * anim[3]), E.size * anim[1], 0, Math.PI * 2);
     ctx.fill();
+
   }
 ];
 
