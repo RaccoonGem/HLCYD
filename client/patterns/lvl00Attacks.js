@@ -73,33 +73,6 @@ let attacks = [
       let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P), game.time + 120);
       game.pieces.push(bullet);
     }, cd: 60
-  }], [{ // fire a burr
-    moves: (E, P) => {
-      let bullet = new Burr(E.x, E.y, 36, 5, game.calcAngle(E, P), game.time + 240);
-      game.pieces.push(bullet);
-    }, cd: 45
-  }], [{ // fire a booster
-    moves: (E, P) => {
-      let bullet = new Booster(E.x, E.y, 24, 1, game.calcAngle(E, P), game.time + 240);
-      game.pieces.push(bullet);
-    }, cd: 45
-  }], [{ // fire a rocket
-    moves: (E, P) => {
-      let bullet = new Rocket(E.x, E.y, 16, 0, game.calcAngle(E, P), game.time + 240);
-      game.pieces.push(bullet);
-    }, cd: 45
-  }], [{ // fire a seeker
-    moves: (E, P) => {
-      let bullet = new Seeker(E.x, E.y, 16, 0, game.calcAngle(E, P), game.time + 240);
-      game.pieces.push(bullet);
-    }, cd: 45
-  }], [{ // 3-bubble spread
-    moves: (E, P) => {
-      for (let f = -1; f < 2; f++) {
-        let bullet = new Bubble(E.x, E.y, 12, 5, game.calcAngle(E, P) + (f * Math.PI / 8), game.time + 120);
-        game.pieces.push(bullet);
-      }
-    }, cd: 90
   }]
 ];
 export default attacks;
