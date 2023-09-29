@@ -22,6 +22,12 @@ let draws = [
     ctx.arc(E.x + (E.size * anim[3]), E.y - (E.size * anim[3]), E.size * anim[1], 0, Math.PI * 2);
     ctx.fill();
 
+    ctx.beginPath();
+    ctx.moveTo(E.x + (E.size / 4), E.y);
+    ctx.quadraticCurveTo(320, 32, 320 + E.size, -64);
+    ctx.lineTo(320 - E.size, -64);
+    ctx.quadraticCurveTo(320, 32, E.x - (E.size / 4), E.y);
+    ctx.fill();
   }
 ];
 

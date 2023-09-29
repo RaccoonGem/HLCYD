@@ -142,11 +142,6 @@ let step = function() {
   }
   //////// DODGING ////////
   else if (game.state === 'dodging') {
-    ctxMG.fillStyle = '#FFFFFF'; // Draw time
-    ctxMG.font = '16px monospace';
-    ctxMG.textAlign = 'center';
-    ctxMG.fillText((game.time / 60).toFixed(2), 320, 16);
-
     game.time++; // Increment time
 
     for (let f = 0; f < game.pieces.length; f++) { // Loop through each game piece
@@ -170,6 +165,11 @@ let step = function() {
         f--;
       }
     }
+
+    ctxMG.fillStyle = '#FFFFFF'; // Draw time
+    ctxMG.font = '16px monospace';
+    ctxMG.textAlign = 'center';
+    ctxMG.fillText((game.time / 60).toFixed(2), 320, 16);
   }
   //////// DEAD ////////
   else if (game.state === 'dead') {
