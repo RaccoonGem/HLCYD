@@ -1,11 +1,12 @@
 import Bullet from './Bullet.js';
 
-let Burr = function (x, y, size, speed, direction, timeOut) {
+let Burr = function (x, y, size, speed, deceleration, direction, timeOut) {
   Bullet.call(this, x, y, size, speed, direction, timeOut);
+  this.decel = deceleration;
 };
 Burr.prototype = Object.create(Bullet.prototype);
 Burr.prototype.update = function () {
-  this.vel.spd -= 0.1;
+  this.vel.spd -= this.decel;
   if (this.vel.spd < 0) {
     this.vel.spd = 0;
   }
