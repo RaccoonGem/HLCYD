@@ -5,7 +5,7 @@ let Player = function (controls) {
   GamePiece.call(this);
   this.x = 320;
   this.y = 360;
-  this.size = 24;
+  this.size = 12;
   this.controls = controls;
 };
 Player.prototype = Object.create(GamePiece.prototype);
