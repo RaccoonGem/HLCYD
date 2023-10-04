@@ -1,9 +1,4 @@
 import Bullet from '../objects/projectiles/Bullet.js';
-import Burr from '../objects/projectiles/Burr.js';
-import Booster from '../objects/projectiles/Booster.js';
-import Rocket from '../objects/projectiles/Rocket.js';
-import Seeker from '../objects/projectiles/Seeker.js';
-import Bubble from '../objects/projectiles/Bubble.js';
 import game from '../game.js';
 
 let attacks = [
