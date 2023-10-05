@@ -12,7 +12,7 @@ Bubble.prototype.update = function () {
 };
 Bubble.prototype.draw = function (ctx) {
   ctx.strokeStyle = this.color;
-  ctx.lineWidth = this.accel * 10;
+  ctx.lineWidth = this.accel * 15;
   ctx.beginPath();
   ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
   ctx.stroke();

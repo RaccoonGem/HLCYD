@@ -12,7 +12,12 @@ let draws = [
     let lookDir = game.calcAngle(E, P);
     ctx.beginPath();
     ctx.moveTo(E.x + (Math.cos(lookDir) * E.size / 4), E.y + (Math.sin(lookDir) * E.size / 4));
-    ctx.arc(E.x + (Math.cos(lookDir) * E.size / 4), E.y + (Math.sin(lookDir) * E.size / 4), E.size / 8, 0, Math.PI * 2);
+    ctx.arc(E.x + (Math.cos(lookDir) * E.size / 4), E.y + (Math.sin(lookDir) * E.size / 4), E.size / 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#FF0000";
+    ctx.beginPath();
+    ctx.moveTo(E.x + (3 * Math.cos(lookDir) * E.size / 8), E.y + (3 * Math.sin(lookDir) * E.size / 8));
+    ctx.arc(E.x + (3 * Math.cos(lookDir) * E.size / 8), E.y + (3 * Math.sin(lookDir) * E.size / 8), E.size / 8, 0, Math.PI * 2);
     ctx.fill();
   }
 ];
