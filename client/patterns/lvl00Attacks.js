@@ -2,20 +2,26 @@ import Bullet from '../objects/projectiles/Bullet.js';
 import game from '../game.js';
 
 let attacks = [
-  [{ // Movement 1, pick random target
+  [{ // Movement 0, pick random direction
+    moves: (E, P) => {
+      E.vel.dir = Math.floor(Math.random() * 360);
+      E.vel.spd = 1 + Math.random();
+      E.cMovement = 0;
+    }, cd: 20
+  }], [{ // Movement 1, pick random direction
+    moves: (E, P) => {
+      E.vel.dir = Math.floor(Math.random() * 360);
+      E.vel.spd = 1 + Math.random();
+      E.cMovement = 1;
+    }, cd: 20
+  }], [{ // Movement 2, pick random target
     moves: (E, P) => {
       E.vel.dir = 0;
       E.vel.spd = 0;
-      E.cMovement = 1;
+      E.cMovement = 2;
       E.targetX = (Math.floor(Math.random() * 3) * 160) + 160;
       E.targetY = (Math.floor(Math.random() * 2) * 160) + 160;
     }, cd: 40
-  }], [{ // Movement 0, pick random direction
-    moves: (E, P) => {
-      E.vel.dir = Math.floor(Math.random() * 360);
-      E.vel.spd = 1;
-      E.cMovement = 0;
-    }, cd: 20
   }], [{ // 360 even bullet spread (more bullets as time passes)
     moves: (E, P) => {
       let progress = 4 + Math.floor(Math.sqrt(game.time / 40));
