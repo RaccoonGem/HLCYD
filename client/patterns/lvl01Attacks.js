@@ -9,45 +9,61 @@ let attacks = [
     moves: (E, P) => {
       let progress = 4 + Math.floor(Math.sqrt(game.time / 40));
       for (let f = Math.random(); f < progress; f++) {
-        let bullet = new Rocket(E.x, E.y, 16, 0, 2 * f * Math.PI / progress, game.time + 150);
+        let bullet = new Rocket().setPosition(E.x, E.y)
+        .setDirection(2 * f * Math.PI / progress)
+        .setTimeOut(game.time + 150);
         game.pieces.push(bullet);
       }
     }, cd: 60
   }], [{ // 3-rocket spread
     moves: (E, P) => {
       for (let f = -1; f < 2; f++) {
-        let bullet = new Rocket(E.x, E.y, 16, 0, game.calcAngle(E, P) + (f * Math.PI / 8), game.time + 120);
+        let bullet = new Rocket().setPosition(E.x, E.y)
+        .setDirection(game.calcAngle(E, P) + (f * Math.PI / 8))
+        .setTimeOut(game.time + 120);
         game.pieces.push(bullet);
       }
     }, cd: 90
   }], [{ // 6-round burst of rockets
     moves: (E, P) => {
-      let bullet = new Rocket(E.x, E.y, 16, 0, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Rocket().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Rocket(E.x, E.y, 16, 0, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Rocket().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Rocket(E.x, E.y, 16, 0, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Rocket().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Rocket(E.x, E.y, 16, 0, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Rocket().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Rocket(E.x, E.y, 16, 0, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Rocket().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Rocket(E.x, E.y, 16, 0, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Rocket().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 60
   }], [{ // fire a booster

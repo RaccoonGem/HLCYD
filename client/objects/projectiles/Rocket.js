@@ -1,11 +1,14 @@
 import Bullet from './Bullet.js';
 
-let Rocket = function (x, y, size, speed, direction, timeOut) {
-  Bullet.call(this, x, y, size, speed, direction, timeOut);
+let Rocket = function () {
+  Bullet.call(this);
+  this.size = 16;
+  this.vel.spd = 0;
+  this.accel = 0.2;
 };
 Rocket.prototype = Object.create(Bullet.prototype);
 Rocket.prototype.update = function () {
-  this.vel.spd += 0.2;
+  this.vel.spd += this.accel;
   this.posUpdate();
 };
 Rocket.prototype.draw = function (ctx) {
@@ -20,5 +23,9 @@ Rocket.prototype.draw = function (ctx) {
   ctx.fill();
   ctx.resetTransform();
 };
+Rocket.prototype.setAcceleration = function (acceleration) {
+  this.accel = acceleration;
+  return this;
+}
 
 export default Rocket;
