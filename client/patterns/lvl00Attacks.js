@@ -26,7 +26,10 @@ let attacks = [
     moves: (E, P) => {
       let progress = 4 + Math.floor(Math.sqrt(game.time / 40));
       for (let f = Math.random(); f < progress; f++) {
-        let bullet = new Bullet(E.x, E.y, 12, 4, 2 * f * Math.PI / progress, game.time + 150);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setSpeed(4)
+        .setDirection(2 * f * Math.PI / progress)
+        .setTimeOut(game.time + 150);
         game.pieces.push(bullet);
       }
     }, cd: 60
@@ -34,66 +37,94 @@ let attacks = [
     moves: (E, P) => {
       let progress = 4 + Math.floor(Math.sqrt(game.time / 80));
       for (let f = 0; f < progress; f++) {
-        let bullet = new Bullet(E.x, E.y, (0.5 + Math.random()) * 18, (Math.random() * 7) + 1, ((Math.random() - 0.5) * Math.PI / 2) + game.calcAngle(E, P), game.time + 150);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setSize((0.5 + Math.random()) * 18)
+        .setSpeed((Math.random() * 7) + 1)
+        .setDirection(((Math.random() - 0.5) * Math.PI / 2) + game.calcAngle(E, P))
+        .setTimeOut(game.time + 150);
         game.pieces.push(bullet);
       }
     }, cd: 60
   }], [{ // 3-bullet spread
     moves: (E, P) => {
       for (let f = -1; f < 2; f++) {
-        let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P) + (f * Math.PI / 8), game.time + 120);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setDirection(game.calcAngle(E, P) + (f * Math.PI / 8))
+        .setTimeOut(game.time + 120);
         game.pieces.push(bullet);
       }
-    }, cd: 90
+    }, cd: 30
   }], [{ // 5-bullet < spread, 5-bullet > spread
     moves: (E, P) => {
       for (let f = -2; f < 3; f++) {
-        let bullet = new Bullet(E.x, E.y, 12, 5 - Math.abs(f), game.calcAngle(E, P) + (f * Math.PI / 32), game.time + 120);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setSpeed(5 - Math.abs(f))
+        .setDirection(game.calcAngle(E, P) + (f * Math.PI / 32))
+        .setTimeOut(game.time + 120);
         game.pieces.push(bullet);
       }
     }, cd: 30
   }, {
     moves: (E, P) => {
       for (let f = -2; f < 3; f++) {
-        let bullet = new Bullet(E.x, E.y, 12, 3 + Math.abs(f), game.calcAngle(E, P) + (f * Math.PI / 32), game.time + 120);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setSpeed(3 + Math.abs(f))
+        .setDirection(game.calcAngle(E, P) + (f * Math.PI / 32))
+        .setTimeOut(game.time + 120);
         game.pieces.push(bullet);
       }
     }, cd: 90
   }], [{ // multiple speeds of bullet fired in a line
     moves: (E, P) => {
       for (let f = 1; f < 17; f++) {
-        let bullet = new Bullet(E.x, E.y, 20 - f, f / 4, game.calcAngle(E, P), game.time + 180);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setSize(20 - f)
+        .setSpeed(f / 4)
+        .setDirection(game.calcAngle(E, P))
+        .setTimeOut(game.time + 180);
         game.pieces.push(bullet);
       }
     }, cd: 90
   }], [{ // 6-round burst of bullets
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 32), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 16))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 28), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 14))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 24), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 12))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 20), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 10))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 16), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P) + ((Math.random() - 0.5) * Math.PI / 8))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 60
   }]
