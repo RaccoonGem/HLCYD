@@ -16,7 +16,10 @@ let attacks = [
   }], [{ // 3-bubble spread
     moves: (E, P) => {
       for (let f = -1; f < 2; f++) {
-        let bullet = new Bubble(E.x, E.y, 12, 4, 0.1, game.calcAngle(E, P) + (f * Math.PI / 8), game.time + 120);
+        let bullet = new Bubble().setPosition(E.x, E.y)
+        .setSpeed(4)
+        .setDirection(game.calcAngle(E, P) + (f * Math.PI / 8))
+        .setTimeOut(game.time + 120);
         game.pieces.push(bullet);
       }
       E.cMovement = 1;
@@ -25,7 +28,9 @@ let attacks = [
   }], [{ // 3-bullet spread
     moves: (E, P) => {
       for (let f = -1; f < 2; f++) {
-        let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P) + (f * Math.PI / 8), game.time + 120);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setDirection(game.calcAngle(E, P) + (f * Math.PI / 8))
+        .setTimeOut(game.time + 120);
         game.pieces.push(bullet);
       }
       E.cMovement = 1;
@@ -48,7 +53,10 @@ let attacks = [
     moves: (E, P) => {
       let progress = 4 + Math.floor(Math.sqrt(game.time / 40));
       for (let f = Math.random(); f < progress; f++) {
-        let bullet = new Bullet(E.x, E.y, 12, 4, 2 * f * Math.PI / progress, game.time + 150);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setSpeed(4)
+        .setDirection(2 * f * Math.PI / progress)
+        .setTimeOut(game.time + 150);
         game.pieces.push(bullet);
       }
     }, cd: 60
@@ -80,7 +88,7 @@ let attacks = [
       .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.4, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
@@ -89,7 +97,7 @@ let attacks = [
       .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.4, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
@@ -98,7 +106,7 @@ let attacks = [
       .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.4, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
@@ -107,7 +115,7 @@ let attacks = [
       .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.4, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
@@ -116,7 +124,7 @@ let attacks = [
       .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.4, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
@@ -125,7 +133,7 @@ let attacks = [
       .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.4, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 60
   }], [{ // bubbles at random horizontal speeds
     moves: (E, P) => {
@@ -135,38 +143,60 @@ let attacks = [
     moves: (E, P) => {
       let progress = 4 + Math.floor(Math.sqrt(game.time / 60));
       for (let f = 0; f < progress; f++) {
-        let bullet = new Bubble(E.x, E.y, 10 + (Math.random() * 6), (Math.random() * 8) - 4, 0.05 + (Math.random() / 10), 0, game.time + 180);
+        let bullet = new Bubble().setPosition(E.x, E.y)
+        .setSize(10 + (Math.random() * 6))
+        .setSpeed((Math.random() * 8) - 4)
+        .setAcceleration(0.05 + (Math.random() / 10))
+        .setTimeOut(game.time + 180);
         game.pieces.push(bullet);
       }
     }, cd: 90
   }], [{ // 6 falling bubbles
     moves: (E, P) => {
-      let bullet = new Bubble((Math.random() * 616) + 12, 1, 48, 0, 0.2, 0, game.time + 120);
+      let bullet = new Bubble().setPosition((Math.random() * 616) + 12, 1)
+      .setSize(48)
+      .setAcceleration(0.2)
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bubble((Math.random() * 616) + 12, 1, 48, 0, 0.2, 0, game.time + 120);
+      let bullet = new Bubble().setPosition((Math.random() * 616) + 12, 1)
+      .setSize(48)
+      .setAcceleration(0.2)
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bubble((Math.random() * 616) + 12, 1, 48, 0, 0.2, 0, game.time + 120);
+      let bullet = new Bubble().setPosition((Math.random() * 616) + 12, 1)
+      .setSize(48)
+      .setAcceleration(0.2)
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bubble((Math.random() * 616) + 12, 1, 48, 0, 0.2, 0, game.time + 120);
+      let bullet = new Bubble().setPosition((Math.random() * 616) + 12, 1)
+      .setSize(48)
+      .setAcceleration(0.2)
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bubble((Math.random() * 616) + 12, 1, 48, 0, 0.2, 0, game.time + 120);
+      let bullet = new Bubble().setPosition((Math.random() * 616) + 12, 1)
+      .setSize(48)
+      .setAcceleration(0.2)
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bubble((Math.random() * 616) + 12, 1, 48, 0, 0.2, 0, game.time + 120);
+      let bullet = new Bubble().setPosition((Math.random() * 616) + 12, 1)
+      .setSize(48)
+      .setAcceleration(0.2)
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
     }, cd: 10
   }]
