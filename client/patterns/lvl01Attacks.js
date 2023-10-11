@@ -68,7 +68,8 @@ let attacks = [
     }, cd: 60
   }], [{ // fire a booster
     moves: (E, P) => {
-      let bullet = new Booster(E.x, E.y, 24, 1, game.calcAngle(E, P), game.time + 240);
+      let bullet = new Booster().setPosition(E.x, E.y)
+      .setTimeOut(game.time + 240);
       game.pieces.push(bullet);
     }, cd: 45
   }], [{ // fire a seeker

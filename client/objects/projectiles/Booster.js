@@ -1,12 +1,13 @@
-import Bullet from './Bullet.js';
+import Rocket from './Rocket.js';
 import game from '../../game.js';
 
-let Booster = function (x, y, size, speed, direction, timeOut) {
-  Bullet.call(this, x, y, size, speed, direction, timeOut);
+let Booster = function () {
+  Rocket.call(this);
+  this.size = 24;
 };
-Booster.prototype = Object.create(Bullet.prototype);
+Booster.prototype = Object.create(Rocket.prototype);
 Booster.prototype.update = function () {
-  this.vel = game.addVector(this.vel, {spd: 0.2, dir: Math.round(game.calcAngle(this, game.player) / (Math.PI / 2)) * (Math.PI / 2)});
+  this.vel = game.addVector(this.vel, {spd: this.accel, dir: Math.round(game.calcAngle(this, game.player) / (Math.PI / 2)) * (Math.PI / 2)});
   this.posUpdate();
 };
 Booster.prototype.draw = function (ctx) {
