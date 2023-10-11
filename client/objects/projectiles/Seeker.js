@@ -1,12 +1,12 @@
-import Bullet from './Bullet.js';
+import Rocket from './Rocket.js';
 import game from '../../game.js';
 
-let Seeker = function (x, y, size, speed, direction, timeOut) {
-  Bullet.call(this, x, y, size, speed, direction, timeOut);
+let Seeker = function () {
+  Rocket.call(this);
 };
-Seeker.prototype = Object.create(Bullet.prototype);
+Seeker.prototype = Object.create(Rocket.prototype);
 Seeker.prototype.update = function () {
-  this.vel = game.addVector(this.vel, {spd: 0.2, dir: game.calcAngle(this, game.player)});
+  this.vel = game.addVector(this.vel, {spd: this.accel, dir: game.calcAngle(this, game.player)});
   this.posUpdate();
 };
 Seeker.prototype.draw = function (ctx) {

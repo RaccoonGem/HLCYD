@@ -74,7 +74,8 @@ let attacks = [
     }, cd: 45
   }], [{ // fire a seeker
     moves: (E, P) => {
-      let bullet = new Seeker(E.x, E.y, 16, 0, game.calcAngle(E, P), game.time + 240);
+      let bullet = new Seeker().setPosition(E.x, E.y)
+      .setTimeOut(game.time + 240);
       game.pieces.push(bullet);
     }, cd: 45
   }]
