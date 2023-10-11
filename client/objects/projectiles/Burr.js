@@ -1,8 +1,10 @@
 import Bullet from './Bullet.js';
 
-let Burr = function (x, y, size, speed, deceleration, direction, timeOut) {
-  Bullet.call(this, x, y, size, speed, direction, timeOut);
-  this.decel = deceleration;
+let Burr = function () {
+  Bullet.call(this);
+  this.size = 36;
+  this.vel.spd = 6;
+  this.decel = 0.075;
 };
 Burr.prototype = Object.create(Bullet.prototype);
 Burr.prototype.update = function () {
@@ -21,5 +23,9 @@ Burr.prototype.draw = function (ctx) {
   ctx.fillRect((sideLength / -2), (sideLength / -2), sideLength, sideLength);
   ctx.resetTransform();
 };
+Burr.prototype.setDeceleration = function (deceleration) {
+  this.decel = deceleration;
+  return this;
+}
 
 export default Burr;

@@ -6,7 +6,9 @@ import game from '../game.js';
 let attacks = [
   [{ // fire a burr
     moves: (E, P) => {
-      let bullet = new Burr(E.x, E.y, 36, 6, 0.075, game.calcAngle(E, P), game.time + 240);
+      let bullet = new Burr().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 240);
       game.pieces.push(bullet);
       E.cMovement = 1;
       E.vel = game.addVector(E.vel, {spd: 1, dir: game.calcAngle(E, P) + Math.PI});
@@ -32,7 +34,11 @@ let attacks = [
   }], [{ // multiple speeds of bullet fired in a line
     moves: (E, P) => {
       for (let f = 1; f < 17; f++) {
-        let bullet = new Bullet(E.x, E.y, 20 - f, f / 4, game.calcAngle(E, P), game.time + 180);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setSize(20 - f)
+        .setSpeed(f / 4)
+        .setDirection(game.calcAngle(E, P))
+        .setTimeOut(game.time + 180);
         game.pieces.push(bullet);
       }
       E.cMovement = 1;
@@ -54,53 +60,72 @@ let attacks = [
     moves: (E, P) => {
       let progress = 4 + Math.floor(Math.sqrt(game.time / 40));
       for (let f = Math.random(); f < progress; f++) {
-        let bullet = new Bullet(E.x, E.y, 12, 5, 2 * f * Math.PI / progress, game.time + 240);
+        let bullet = new Bullet().setPosition(E.x, E.y)
+        .setDirection(2 * f * Math.PI / progress)
+        .setTimeOut(game.time + 240);
         game.pieces.push(bullet);
-        bullet = new Burr(E.x, E.y, 24, 5, 0.05, 2 * (f + 0.5) * Math.PI / progress, game.time + 240);
+        bullet = new Burr().setPosition(E.x, E.y)
+        .setSize(24)
+        .setSpeed(5)
+        .setDeceleration(0.05)
+        .setDirection(2 * (f + 0.5) * Math.PI / progress)
+        .setTimeOut(game.time + 240);
         game.pieces.push(bullet);
       }
     }, cd: 60
   }], [{ // 6-round burst of bullets
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.2, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.2, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.2, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.2, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.2, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 10
   }, {
     moves: (E, P) => {
-      let bullet = new Bullet(E.x, E.y, 12, 5, game.calcAngle(E, P), game.time + 120);
+      let bullet = new Bullet().setPosition(E.x, E.y)
+      .setDirection(game.calcAngle(E, P))
+      .setTimeOut(game.time + 120);
       game.pieces.push(bullet);
       E.cMovement = 1;
-      E.vel = game.addVector(E.vel, {spd: 0.2, dir: game.calcAngle(E, P) + Math.PI});
+      E.vel = game.addVector(E.vel, {spd: 0.5, dir: game.calcAngle(E, P) + Math.PI});
     }, cd: 60
   }], [{ // bubbles at random horizontal speeds
     moves: (E, P) => {

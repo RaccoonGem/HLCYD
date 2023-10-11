@@ -46,6 +46,6 @@ Bullet.prototype.setTimeOut = function (timeOut) {
 Bullet.prototype.setColor = function (color) {
   this.color = color;
   return this;
-}
+};
 
 export default Bullet;
